@@ -63,6 +63,12 @@
     font-family: 'cursive';
     font-weight: 600;
   }
+  .box{
+    background-image: url("/images/istockphoto-1223896865-612x612.jpg");
+    background-size: cover;
+  background-attachment: fixed;
+  height: 90vh;
+  }
   @media screen and (max-width: 998px){
     
     .quiz-mod-box {
@@ -86,6 +92,7 @@
    }
   }
 </style>
+<div class="box">
 {{#if user}}
 <p id="userId" style="display: none;">{{user._id}}</p>
 
@@ -194,3 +201,4 @@
 </script>
  {{/ifEquals}}
  {{/if}}
+ </div>
