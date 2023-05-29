@@ -172,5 +172,10 @@ router.get('/view-score/m:m',verifyAdmin,(req,res)=>{
         res.render('admin/user-manager', {title: 'LQGR User-Manager',data,admin:true,url:UrlAdmpg})
       })  
     })
+   router.get('/feedback',verifyAdmin,(req,res)=>{
+      productHelper.getFeedbacks().then((feedbackss)=>{
+        res.render('admin/feedbacks',{feedbackss})
+      })
+    })
 
   module.exports = router;
