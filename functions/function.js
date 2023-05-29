@@ -580,5 +580,31 @@ deleteMessage:(i)=>{
   startQuiz:(m,w)=>{
     db.get().collection('qns').updateOne({modul:`${m}`,week:`${w}`},{$set:{status:'started'}})
   },
+    
+    storeFeedbacks:(data)=>{
+    return new Promise(async(resolve,reject)=>{
+      let msgExist=await db.get().collection('messages').findOne({name:'feedbacks'})
+      if(msgExist){
+        db.get().collection('messages').updateOne(
+          { name:'feedbacks'},
+          { $push: { feedbacks:data } }
+       )
+      }else{
+        db.get().collection('messages').insertOne({name:'feedbacks'})
+        db.get().collection('messages').updateOne(
+          { name:'feedbacks'},
+          { $push: { feedbacks:data } }
+       )
+  }
+    })
+  },
+
+  getFeedbacks:()=>{
+    return new Promise(async(resolve,reject)=>{
+      let feedbacks=await db.get().collection('messages').findOne({name:'feedbacks'})
+      console.log(feedbacks);
+      resolve(feedbacks)
+    })
+  },
 
 }
