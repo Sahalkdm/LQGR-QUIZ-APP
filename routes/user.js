@@ -1,9 +1,12 @@
 const { log } = require('debug/src/browser');
 var express = require('express');
 var router = express.Router();
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 const prjAdm = process.env.My_Own;
 const UrlAdmpg = process.env.My_OwnUrl;
+const myMail = process.env.My_Mail;
+const myMailPass = process.env.My_Mail_Pass;
 const url1=process.env.PORT
 const messages = [];
 const productHelper=require('../functions/function');
@@ -231,6 +234,35 @@ router.get('/about',(req,res)=>{
   let user=req.session.user
   res.render('user/about',{title: 'LQGR About',user})
 })
+
+router.post('/aboutus', (req, res) => {
+  const { email,name,phone, message } = req.body;
+ const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: myMail,
+      pass: myMailPass,
+    },
+    tls: {rejectUnauthorized: false}
+  });
+
+  // set up the email message
+  const mailOptions = {
+    from: email,
+    to: myMail,
+    subject: 'New message from website contact form',
+    text: `${name},\n\n${message},\n\nEmail : ${email},\n\nPhone No. : ${phone}`,
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      res.status(500).send('Error sending email');
+    } else {
+      res.redirect('/about');
+    }
+  });
+});
 
 router.put('/mark-as-read', (req,res)=>{
   productHelper.updateMessageRead(req.body)
