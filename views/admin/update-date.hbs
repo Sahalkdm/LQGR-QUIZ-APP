@@ -1,0 +1,75 @@
+<style>
+  .edit-date-box{
+    margin:auto;
+     -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  text-align: center;
+  margin-top: 2rem;
+  }
+  .edit-date-box select{
+    background: rgb(175, 48, 48);
+    color: white;
+    padding:3px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 3px;
+  }
+  .edit-date-box select:hover{
+    background: rgb(139, 29, 29);
+  }
+  
+</style>
+
+<div style="border: 2px solid;padding:10px;width:fit-content;" class="bg-light edit-date-box">
+  <form action="/{{url}}/update-date/{{id}}" method="post">
+
+  <h2>Module : {{m}}</h2>
+  <h2>Week : {{w}}</h2>
+
+ <select id="day" onchange="myfunction()" required>
+      <option value="" disabled selected>select Day</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+  </select>
+  
+  <select id="month" onchange="myfunction()" required>
+      <option value="" disabled selected>select Month</option>
+      <option value="January">Jan</option>
+      <option value="February">Feb</option>
+      <option value="March">Mar</option>
+      <option value="April">Apr</option>
+  </select>
+
+  <select id="year" onchange="myfunction()" required>
+      <option value="" disabled selected>select Year</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+  </select>
+ <p id="dat"></p>
+  <input type="text" id="day1" name="day" hidden>
+  <input type="text" id="month1" name="month" hidden>
+  <input type="text" id="year1" name="year" hidden>
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+</div>
+
+<script>
+  function myfunction(){
+    const year=document.getElementById('year').value
+  const month=document.getElementById('month').value
+  const day=document.getElementById('day').value
+  document.getElementById('year1').value=year;
+  document.getElementById('month1').value=month;
+  document.getElementById('day1').value=day;
+  document.getElementById('dat').innerHTML=day+'/'+month+'/'+year;
+  }
+  
+</script>

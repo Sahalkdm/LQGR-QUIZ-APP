@@ -1,0 +1,103 @@
+<style>
+  .login-box {
+    -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+   padding: 30px 50px;
+   width: 50%;
+   text-align: center;
+   border-radius: 5px;
+   margin-bottom: 7%;
+   background: rgba(222, 184, 135, 0.482);
+  }
+
+
+
+  .login-box img {
+    width: 15rem;
+  }
+
+  .login-box form {
+    text-align: left;
+  }
+
+  .login-box label {
+    margin-top: 1rem;
+  }
+
+  .container {
+    display: flex;
+    padding-top: 7%;
+    justify-content: center;
+  }
+
+  .btn-box1 {
+    text-align: center;
+  }
+
+  .btn-box1 button {
+    width: 40%;
+  }
+
+  .error {
+    color: red;
+  }
+  .links{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    flex-wrap: wrap;
+  }
+  @media screen and (max-width: 850px) {
+    .login-box{
+      width: 80%;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .login-box {
+      width: 100%;
+      margin-top: 3rem;
+      padding: 30px 10px;
+    }
+  }
+</style>
+
+<section>
+  <div class="container">
+    <div class="login-box">
+      <img src="/images/rainbow-logo-design-transparent-0.png" alt="">
+      <h2>LOGIN</h2>
+      <form action="/user/login" method="post" id="form2">
+      
+{{#if loginErr}}
+   <p class="error">⚠️Invalid username or Password</p>
+  {{/if}} 
+  <div class="form-group">
+    <label for="uname">User Name</label>
+    <div class="input-group">
+                            <div class="input-group-addon bg-warning pt-2 text-center" style="height:2.37rem; width: 1.5rem;">
+                                <i class="fa-solid fa-user"></i> 
+                            </div>
+    <input type="text" class="form-control" id="uname" aria-describedby="" placeholder="User Name" name="username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <div class="input-group">
+                            <div class="input-group-addon bg-warning pt-2 text-center" style="height:2.37rem; width: 1.5rem;">
+                                <i class="fa-solid fa-lock"></i> 
+                            </div>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+  </div>
+  <div class="links">
+  <a href="/forgotpassword">Forgot Password!</a>
+  <p>New member <a href="/signup">Register!</a></p>
+  </div>
+ <div class="btn-box1">
+    <button type="submit" class="btn btn-success">Submit</button>
+ </div>
+</form>
+    </div>
+  </div>
+</section>

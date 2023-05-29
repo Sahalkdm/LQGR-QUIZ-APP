@@ -1,0 +1,45 @@
+<style>
+    .users-box{
+        overflow-x: auto;
+        background:rgba(222, 184, 135, 0.805);
+        padding: 5px 2px;
+        margin-top: 3rem;
+    }
+</style>
+
+<h2>Users</h2>
+<div class="users-box">
+<table class="table bg-light table-striped" id="myTable1">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">sl no.</th>
+      <th scope="col">Name</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Age</th>
+      <th scope="col">Place</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each data}}
+<tr>
+      <th scope="col">{{indexAdd @index}}</th>
+      <td scope="col">{{this.name}}</td>
+      <td scope="col">{{this.username}}</td>
+      <td scope="col">{{this.age}}</td>
+      <td scope="col">{{this.place}}</td>
+      <td scope="col">{{this.email}}</td>
+      <td scope="col">{{this.phone}}</td>
+    </tr>
+    
+    {{/each}}
+  </tbody>
+</table>
+</div>
+<script>
+    $(document).ready( function () {
+    $('#myTable1').DataTable();
+} );
+</script>

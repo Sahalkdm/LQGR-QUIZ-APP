@@ -1,0 +1,55 @@
+<style>
+  .edit-qn-box{
+    margin: auto;
+      padding:10px;
+      width:60%;
+      -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+   margin-top: 30px;
+   
+  }
+  .edit-qn-box input{
+    width: 95%;
+  }
+  @media only screen and (max-width: 998px){
+      .edit-qn-box{
+        width: 80%;
+      }
+    }
+    @media only screen and (max-width: 480px){
+      .edit-qn-box {
+        width: 95%;
+      }
+    }
+</style>
+
+<div style="border: 2px solid;padding:10px;" class="bg-light edit-qn-box">
+<form action="/{{url}}/edit-qns" method="post">
+  <label for="">Question:</label><br>
+  <input type="text" id="qn" name="qn" class="input" style="height:30px" value="{{qns.qn}}" required><br>
+  <label for="">Option 1</label><br>
+  <input type="text" id="op1" name="op1" style="height:30px" value="{{qns.op1}}" required><br>
+  <label for="">Option 2</label><br>
+  <input type="text" id="op2" name="op2" style="height:30px" value="{{qns.op2}}" required><br>
+  <label for="">Option 3</label><br>
+  <input type="text" id="op3" name="op3" style="height:30px" value="{{qns.op3}}" required><br>
+  <label for="">Option 4</label><br>
+  <input type="text" id="op4" name="op4" style="height:30px" value="{{qns.op4}}" required><br>
+  <input type="number" name="id" value="{{qns.id}}" hidden>
+  <input type="text" name="_id" value="{{id}}" hidden>
+  <input type="number" name="md" value="{{qns.md}}" hidden><br>
+   <input type="number" name="i" value="{{i}}" hidden><br>
+  <label for="">Answer Option</label><br>
+  <input type="text" id="ans" name="ans" style="height:30px" value="{{qns.ans}}" required><br><br>
+  <button type="submit" class="btn btn-primary">Save Changes</button><br><br>
+  
+</form>
+</div>
+<style>
+    .input:{
+        width: 100px;
+    }
+</style>

@@ -1,0 +1,150 @@
+<style>
+    .side-box{
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+    .side-box div{
+        text-align: center;
+        padding: 10px;
+        color: black;
+        margin: 0%;
+        border-bottom: 1px solid rgb(207, 206, 206);
+    }
+    .side-box a{
+        text-decoration: none;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .side-box div:hover{
+        background: rgb(242, 237, 235);
+    }
+    #error{
+      color:red;
+      font-size: medium;
+    }
+</style>
+
+<div class="">
+
+</div>
+    <div class="col-lg-2 col-md-3 col-sm-4 bg-light side-box">
+
+<a data-toggle="modal" data-target="#securityCode" onclick="applySecurityCode('{{url}}/quiz-list')"><div>Add Question</div></a>
+<a data-toggle="modal" data-target="#securityCode" onclick="applySecurityCode('{{url}}/add-week')"><div>Add Week</div></a>
+<a data-toggle="modal" data-target="#securityCode" onclick="applySecurityCode('{{url}}/submit-quiz')"><div>Submit Quiz</div></a>
+<a data-toggle="modal" data-target="#exampleModal"><div>Delete Chats</div></a>
+<a href="{{url}}/view-score/m0"><div>View Scores</div></a>
+<a data-toggle="modal" data-target="#securityCode" onclick="applySecurityCode('{{url}}/add-message')"><div>Send Message</div></a>
+<a data-toggle="modal" data-target="#securityCode" onclick="applySecurityCode('{{url}}/add-week')"><div>Upload Document</div></a>
+<a data-toggle="modal" data-target="#securityCode" onclick="applySecurityCode('{{url}}/add-message')"><div>Set Current Module</div></a>
+<a data-toggle="modal" data-target="#securityCode" onclick="applySecurityCode('{{url}}/user-manager')"><div>User Manager</div></a>
+<a data-toggle="modal" data-target="#exportData"><div>Get Users Scores in Excel</div></a>
+    </div>
+<br>
+
+<p id="seccode" style="display:none">{{secCode}}</p>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Messages</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/{{url}}/delete-user-chats" method="post">
+          <div class="form-group">
+            <label for="num" class="col-form-label">Number of messages need to delete</label>
+            <input type="number" class="form-control" id="num" name="number">
+          </div>
+          <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" >Delete messages</button>
+      </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exportData" tabindex="-1" role="dialog" aria-labelledby="exportDataLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exportDataLabel">Export Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/{{url}}/export" method="post">
+          <div class="form-group">
+            <label for="mod" class="col-form-label">Export data into Excel</label>
+            <input type="number" class="form-control" id="mod" name="module" placeholder="Select Module" min="1" max="20">
+          </div>
+          <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" >Export Data</button>
+      </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="securityCode" tabindex="-1" role="dialog" aria-labelledby="securityLabel" aria-hidden="true">
+</div>
+
+<script>
+  function applySecurityCode(link){
+    document.getElementById("securityCode").innerHTML=`
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="securityLabel">Enter Code</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                <p id="error"></p>
+        <form action="">
+          <div class="form-group">
+            <label for="cod" class="col-form-label">Please type code to enter the page</label>
+            <input type="text" class="form-control" id="cod" placeholder="Type code" onchange="checkCode('${link}')">
+          </div>
+          <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="" id="hlink"><button type="button" class="btn btn-primary" >Apply Code</button></a>
+      </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>`
+  }
+
+  function checkCode(link){
+    let enteredCode=document.getElementById("cod")
+    if(enteredCode.value){
+      let secCode=document.getElementById("seccode").innerHTML
+    let linkElement=document.getElementById("hlink")
+    if(enteredCode.value===secCode){
+      linkElement.href=link
+    }else{
+      document.getElementById("error").innerHTML='⚠️ your code is not matching'
+      enteredCode.value=''
+      setTimeout(function() {
+    $("#error").fadeTo(500, 0).slideUp(500, function(){
+        $(this).innerHTML=''; 
+    });
+}, 3000);
+    }
+  }
+  }
+</script>
+
+  

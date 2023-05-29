@@ -1,0 +1,87 @@
+<style>
+  .nav-comp:hover{
+    background-color:rgb(98, 95, 82);
+  }
+  .navbar .nav-item:hover .nav-link{ color: gold;  }
+  .log-out {
+    background-color: red;
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    border-radius: 5px;
+  }
+  .log-out:hover{
+    background-color: rgb(246, 33, 33);
+  }
+  .navbar img{
+    width: 32px;
+    margin-right: 5px;
+  }
+  
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  
+  <a class="navbar-brand" href="/"><img src="/images/rainbow-logo-design-transparent-0.png" alt="">LQGR</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto ">
+      
+      <li class="nav-item active ">
+        <a class="nav-link " href="/">Home</a>
+      </li>
+       <li class="nav-item active ">
+        <a class="nav-link ml-3" href="/pdfs"> Documents </a>
+      </li>
+      <li class="nav-item active ">
+        <a class="nav-link ml-3" href="/home"> Quiz </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link ml-3" href="/winners/m0">Winners</a>
+      </li>
+     {{#if user}}
+      <li class="nav-item dropdown active">
+        
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{user.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+          
+              <div class="dropdown-menu p-4 text" style="max-width: 200px;" aria-labelledby="dropdownMenuLink">
+                  <p>Name : {{user.name}}</p>
+                  <p>Place : {{user.place}}</p>
+                  
+              </div>
+
+          <a class="dropdown-item" href="/marks/m0">My Marks</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item log-out" href="/logout">Logout</a>
+        </div>
+        <li class="nav-item active">
+        <a class="nav-link ml-3" href="/about"> About </a>
+      </li>
+      </li>
+        {{else}}
+        <li class="nav-item active">
+        <a class="nav-link ml-3" href="/about"> About </a>
+      </li>
+       <li class="nav-item active ml-4">
+           <a class="nav-link btn btn-outline-success" href="/login" role="button" aria-haspopup="true" aria-expanded="false">
+          Login
+        </a>
+        </li>
+        <li class="nav-item active ml-4 mt-1">
+           <a class="nav-link btn btn-outline-secondary" href="/signup" role="button" aria-haspopup="true" aria-expanded="false">
+          Register
+        </a>
+        </li>
+        {{/if}}
+      
+    </ul>
+    
+  </div>
+</nav>

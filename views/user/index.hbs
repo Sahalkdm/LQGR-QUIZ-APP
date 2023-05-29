@@ -1,0 +1,196 @@
+<style>
+#comicon {
+  cursor: pointer;
+  text-shadow: 2px 2px #000000;
+}
+  
+#alerts{
+  position: absolute;
+  right: 5px;
+  top: 64px;
+  text-align: start;
+}
+.comicon-box{
+  text-align: end;
+  padding-top: 5px;
+  padding-right: 8px;
+  color: rgb(0, 183, 255);
+}
+#cart-count{
+  position: relative;
+  top: -30px;
+  right: -20px;
+  width: 15px;
+  height:15px;
+  font-size: 10px;
+}
+#alert{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+.msg-box{
+  min-width: 300px;
+}
+  .quiz-mod-box {
+    padding: 2rem;
+    text-align: center;
+    background: rgba(222, 184, 135, 0.482);
+    width: 50%;
+    margin: auto;
+    margin-top: 3rem;
+    box-shadow: 0 -5px 3px -3px black, 0 5px 3px -3px
+  }
+  .dpdn-box{
+    width: 90%;
+  }
+
+  .dpdn-menu{
+    width: 100%;
+    text-align: center;
+  }
+  .dpdn-item {
+    padding: 5px;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  .heading{
+    color: white;
+    text-align: center;
+    text-shadow: 3px 3px #000000;
+    font-family: 'cursive';
+    font-weight: 600;
+  }
+  @media screen and (max-width: 998px){
+    
+    .quiz-mod-box {
+    padding: 0.7rem;
+    width: 80%;
+   }
+    .dpdn-box {
+    width: 90%;
+   }
+   .msg-box{
+    min-width: 200px;
+   }
+  }
+  @media screen and (max-width: 480px){
+    .quiz-mod-box{
+      width: 100%;
+      padding:1rem 0.5rem;
+    }
+    .msg-box{
+    min-width: 100px;
+   }
+  }
+</style>
+{{#if user}}
+<p id="userId" style="display: none;">{{user._id}}</p>
+
+<div class="alert alert-success" role="alert" id="alert">
+  <strong>Success!</strong> You are Logged in!
+</div>
+
+    <div class="comicon-box">
+  <i class="fa-solid fa-comment fa-2x" id="comicon">
+    <span class="badge badge-pill badge-danger" id="cart-count">!</span>
+     </i>
+</div>
+    
+   {{else}}
+   <div class="comicon-box">
+  <i class="fa-solid fa-comment fa-2x" id="comicon">
+    <span class="badge badge-pill badge-danger" id="cart-count" style="display: none;">!</span>
+     </i>
+</div>
+{{/if}}
+
+<h2 class="heading">Welcome to <strong>{{title}}</strong></h2>
+<div>
+
+</div>
+<br>
+
+<div class="quiz-mod-box">
+{{#with curMod}}
+<div class="mod-box">
+   <div class="btn-group dpdown dpdn-box">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Quiz Module {{modul}}
+  </button><br>
+  <div class="dropdown-menu dpdn-menu">
+    {{#each weeks}}
+    <a class="dropdown-item bg-warning dpdn-item" href="/quiz/m{{../this.modul}}/w{{this}}">Day {{this}}</a>
+    {{/each}}
+</div>
+</div>
+{{/with}}
+
+</div>
+
+<div id="alerts"></div>
+<script>
+  let btn=document.getElementById("comicon")
+  btn.addEventListener('click', ()=>{
+    document.getElementById("cart-count").style.display='none'
+    document.getElementById("alerts").innerHTML=
+    `
+  {{#with messagess}}
+  <div class="row no-gutters">
+		<div class="col-lg-4 col-md-6 col-sm-8 ml-auto msg-box">
+			<div class="alert alert-success fade show" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    	<span aria-hidden="True">&times;</span>
+			  	</button>
+			 	<h4 class="alert-heading">Info !</h4>
+			  	
+			
+  <ul>
+  {{#each messages}}
+  <li><p>{{this.message}}</p></li>
+  {{/each}}
+  </ul>
+  </div>
+		</div>
+	</div>
+  {{/with}}`
+
+ })
+
+ setTimeout(function() {
+    $("#alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 2000);
+
+</script>
+ {{#if user}}
+ {{#ifEquals read 'true'}}
+ <script>
+  document.getElementById("cart-count").style.display='block'
+  let btn1=document.getElementById("comicon")
+  btn1.addEventListener('click', ()=>{
+   const xhr = new XMLHttpRequest();
+  xhr.open("PUT", "/mark-as-read", true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log("you read the message");
+    }
+  };
+  let userId=document.getElementById("userId").innerHTML
+  const body={
+    id:userId
+  }
+  const data = JSON.stringify(body);
+  xhr.send(data);
+  })
+ </script>
+  {{else}}
+<script>
+  document.getElementById("cart-count").style.display='none'
+</script>
+ {{/ifEquals}}
+ {{/if}}

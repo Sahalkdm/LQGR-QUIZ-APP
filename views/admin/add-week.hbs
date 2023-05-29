@@ -1,0 +1,168 @@
+<style>
+  .add-week-box select{
+    background: rgb(175, 48, 48);
+    color: white;
+    padding:3px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 3px;
+  }
+  .add-week-box select:hover{
+    background: rgb(139, 29, 29);
+  }
+  .add-week-box select option{
+    background: rgb(179, 52, 52);
+  }
+  .add-week-box{
+    width:60%;
+    text-align: center;
+  }
+  .upl-pdf{
+    text-align: center;
+    width: 60%;
+    margin:auto;
+    border: 2px solid brown;
+  }
+  .upl-pdf input[type="file"]::file-selector-button{
+    background: brown;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 5px;
+    padding: 2px;
+    border: 2px solid brown;
+  }
+  .upl-pdf input[type="file"]::file-selector-button:hover{
+    background: rgb(182, 54, 54);
+  }
+  @media only screen and (max-width: 520px){
+     .add-week-box{
+      width:95%;
+     }
+     .upl-pdf{
+      width: 95%;
+     }
+  }
+</style>
+
+<div style="border: 2px solid;padding:10px;margin: auto;" class="bg-light mt-3 add-week-box">
+  <h2>Add Week</h2>
+  <form action="/{{url}}/add-week" method="post">
+
+  <select id="module" onchange="myfunction()" required>
+      <option value="" disabled selected>select Module</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+  </select>
+<h4 id="mdl"></h2>
+<label for="">Week</label><br>
+<select id="sweek" onchange="myfunction()" required>
+      <option value="" disabled selected>select Week</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+  </select>
+  <br>
+  <input type="number" id="week" name="week" class="input" style="" required hidden><br>
+  <h4 id="wl"></h2>
+  <select id="day" onchange="myfunction()" required>
+      <option value="" disabled selected>select Day</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+      <option value="19">19</option>
+      <option value="20">20</option>
+      <option value="21">21</option>
+      <option value="22">22</option>
+      <option value="23">23</option>
+      <option value="24">24</option>
+      <option value="25">25</option>
+      <option value="26">26</option>
+      <option value="27">27</option>
+      <option value="28">28</option>
+      <option value="29">29</option>
+      <option value="30">30</option>
+      <option value="31">31</option>
+  </select>
+  
+  <select id="month" onchange="myfunction()" required>
+      <option value="" disabled selected>select Month</option>
+      <option value="January">Jan</option>
+      <option value="February">Feb</option>
+      <option value="March">Mar</option>
+      <option value="April">Apr</option>
+      <option value="May">may</option>
+      <option value="June">june</option>
+      <option value="July">July</option>
+      <option value="Aug">Aug</option>
+      <option value="Sep">Sep</option>
+      <option value="Oct">Oct</option>
+      <option value="Nov">Nov</option>
+      <option value="Dec">Dec</option>
+  </select>
+
+  <select id="year" onchange="myfunction()" required>
+      <option value="" disabled selected>select Year</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+  </select>
+ <p id="dat"></p>
+  <input type="text" id="day1" name="day" hidden>
+  <input type="text" id="month1" name="month" hidden>
+  <input type="text" id="year1" name="year" hidden>
+  <input type="number" id="modulell" name="modul" hidden>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+</div>
+<br>
+<div class="upl-pdf bg-warning p-2">
+<h2>Upload Document</h2>
+  <form action="/{{url}}/upload" method="post" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name">
+    <label for="pdf">PDF:</label>
+    <input type="file" name="pdf" id="pdf" class="bg-white"><br>
+    <button type="submit" class="btn btn-primary mt-3">Upload</button>
+  </form>
+</div>
+<script>
+  function myfunction(){
+    const year=document.getElementById('year').value
+  const month=document.getElementById('month').value
+  const day=document.getElementById('day').value
+  const module=document.getElementById('module').value
+  const week=document.getElementById('sweek').value
+
+  document.getElementById('year1').value=year;
+  document.getElementById('month1').value=month;
+  document.getElementById('day1').value=day;
+  document.getElementById('modulell').value=module;
+  document.getElementById('week').value=week;
+  document.getElementById('dat').innerHTML=day+'/'+month+'/'+year;
+  document.getElementById('mdl').innerHTML='module'+module;
+  document.getElementById('wl').innerHTML='Week'+week;
+  }
+  
+</script>

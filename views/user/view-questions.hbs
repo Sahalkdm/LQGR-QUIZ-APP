@@ -1,0 +1,388 @@
+<style>
+
+  .headings {
+    text-align: center;
+    padding:2rem 0rem;
+    color: white;
+    box-shadow: 0 -5px 3px -3px black, 0 5px 3px -3px black;
+    background: rgba(209, 172, 124, 0.637);
+    text-shadow: 1px 1px #000000;
+  }
+
+  .headings h2 h3 h4 {
+
+    }
+
+  .view-qns {
+    padding: 5rem 20%;
+  }
+  
+  .qn-div {
+     margin-top: 10px;
+     padding:10px;width:100%; border-radius:10px;
+     background: rgba(222, 184, 135, 0.755); 
+     font-weight: 500;
+     font-size: 20px;
+      -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  
+  }
+
+  input[type="radio"] {
+    display: none; 
+  }
+label {
+  display: inline-block;
+  border: 1px solid white;
+  width: 100%;
+  padding: 5px;
+  
+  border-radius: 3px;
+  overflow-wrap: break-word;
+  padding-left: 10px;
+}
+input[type="radio"]:checked + label {
+  background-color: #4CAF50;
+  color: #fff;
+  border-color: #4CAF50;
+}
+#alert1{
+  position: fixed;
+  bottom: 0px;
+  right: 3px;
+}
+#alert2{
+  position: fixed;
+  bottom: 0px;
+  right: 3px;
+}
+@media screen and (max-width: 850px) {
+  .view-qns {
+    padding: 5% 5%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .qn-div {
+    font-size: 1.1em;
+    padding: 1em;
+  }
+}
+
+#elapsed-time{
+  float: right;
+  font-size: large;
+  color: red;
+  font-weight: 500;
+  margin: 10px;
+}
+
+</style>
+
+<script>
+  const newAns=[]
+  const newOps=[]
+</script>
+{{#with ops}}
+{{#each op}}
+   <script>
+    var option='{{this}}'
+    if(option){
+  $('.input{{@index}}').ready(function(){
+    $('#{{this}}').attr('checked',true);
+        
+  })
+    }
+  newOps.splice(0, 0, "{{this}}");
+</script>
+{{/each}}
+{{/with}}
+
+{{#with answers}}
+{{#each ans}}
+<script> 
+    newAns.splice(0, 0, "{{this}}");
+</script>
+
+{{/each}}
+
+<script>
+ 
+
+  const newArr=newAns.reverse()
+  const newOpsArr=newOps.reverse()
+</script>
+
+
+{{/with}}
+<h5 id="user" style="display:none">{{user._id}}</h5>
+{{#with questions}}
+
+{{#if qns}}
+<div class="headings">
+<h2>Quiz Module {{modul}}</h2>
+<h3>Day {{week}}</h3>
+<h4>{{day}}-{{month}}-{{year}}</h4>
+<h4>9:00 PM to 10:00 PM</h4>
+<h4>Total Time 15 minutes</h4>
+</div>
+{{#if ../ifuser}}
+<a href="/{{../url}}/update-date/{{_id}}/md{{modul}}/wk{{week}}" class="btn btn-primary">Edit Date</a>
+{{/if}}
+
+{{#ifEquals status 'Not-started'}}
+   <h>Quiz Not started</h>
+   <button id="btn" style="display: none;"></button>
+{{/ifEquals}}
+
+{{#ifEquals status 'started'}}
+<div id="elapsed-time"></div>
+<div class="view-qns">
+{{#each qns}}
+<div  class="qn-div" key={{@index}} id="{{@index}}" onchange="clickHandle({{this.md}},{{this.id}})">
+    <p>{{indexAdd @index}} . {{this.qn}}  {{week}}</p>
+    <input type='radio' value="{{this.op1}}" name="{{@index}}" id="{{@index}}1" class="input{{@index}}"/><label for="{{@index}}1">a. {{this.op1}}</label><br/>
+    <input type='radio' value="{{this.op2}}" name="{{@index}}" id="{{@index}}2" class="input{{@index}}"/><label for="{{@index}}2">b. {{this.op2}}</label><br/>
+    <input type='radio' value="{{this.op3}}" name="{{@index}}" id="{{@index}}3" class="input{{@index}}"/><label for="{{@index}}3">c. {{this.op3}}</label><br/>
+    <input type='radio' value="{{this.op4}}" name="{{@index}}" id="{{@index}}4" class="input{{@index}}"/><label for="{{@index}}4">d. {{this.op4}}</label><br/>
+</div>
+{{#if ../../ifuser}}
+<a href="/{{../../url}}/edit-qns/{{../_id}}/{{@index}}" class="btn btn-primary">edit</a>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true"></div>
+<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal1" onclick="deletePopup('/{{../../url}}/delete-qn/{{this.md}}/{{this.id}}/{{../_id}}/{{@index}}')">Delete</button>
+{{/if}}
+{{/each}}
+</div>
+<form action="/score" method="post" id="submitForm">
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <h5 class="modal-title" id="exampleModalLabel">Submit Quiz</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to submit?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+        <button type="submit" class="btn btn-success" onclick="onSubmit({{modul}},{{week}})" id="sbtns">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <input type="number" name="score" id="score" hidden>
+  <input type="text" name="userId" id="userIdd" hidden>
+  <input type="number" value={{week}} name="week" hidden>
+  <input type="number" value={{modul}} name="modul" hidden>
+  <div class="button-div text-center pb-3">
+  <button type="button" id="btn" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" itemid="sbtns">submit</button> 
+</div>
+</form>
+{{#if ../check}}
+<div class="alert alert-success" role="alert" id="alert1">
+  <strong>Success!</strong> You have submitted!
+</div>
+
+<script>
+  document.getElementById('btn').disabled=true
+  document.getElementById('sbtns').disabled=true
+  for(let i=0;i<{{../qnsLength}};i++){
+    for(let j=0;j<4;j++){
+       document.getElementsByName(''+i)[j].disabled=true
+    }
+    
+  }
+</script>
+{{else}}
+
+<script>
+  //let startTime={{startTime}}
+const quizStartTime = {{../startTime}}
+console.log(quizStartTime)
+  function updateElapsedTime() {
+    const currentTime = new Date();
+    const elapsedTime = currentTime - quizStartTime;
+
+    // Display the elapsed time on the page
+    document.getElementById('elapsed-time').textContent = formatElapsedTime(elapsedTime);
+
+    // Check if the time limit has exceeded
+    const timeLimit = 2 * 60 * 1000; // 15 minutes in milliseconds
+    if (elapsedTime >= timeLimit) {
+      // Redirect to the submission page or perform any other desired action
+      document.querySelector("#sbtns").click();
+      console.log('timeup')
+      clearInterval(intervalId);
+      console.log('timeuppppp')
+    }
+  }
+  function formatElapsedTime(time) {
+    // Format the elapsed time as desired (e.g., minutes and seconds)
+    // Implement your own formatting logic here
+    const minutes = Math.floor(time / 1000 / 60);
+    const seconds = Math.floor((time / 1000) % 60);
+    return `${minutes} minutes ${seconds} seconds`;
+  }
+
+  // Call the updateElapsedTime function initially and every second
+  //updateElapsedTime();
+  var intervalId=setInterval(updateElapsedTime, 1000);
+</script>
+{{/if}}
+  <script>
+var arr=[];
+  const clickHandle =(m,w)=>{
+ document.addEventListener('change',function(c){
+    let b=c.target.id;
+    let a=c.target.name;
+    
+    let userid=document.getElementById("user").innerHTML
+    newOpsArr[a]=b;
+
+          let v=document.getElementsByName(`${a}`)
+          arr[a]=b
+
+          const xhr = new XMLHttpRequest();
+  xhr.open("PUT", "/update-score", true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log("option updated successfully");
+    }
+  };
+
+  const body={
+    index:a,
+    id:b,
+    week:w,
+    module:m,
+    array:arr,
+    userid:userid
+  }
+  const data = JSON.stringify(body);
+  xhr.send(data);
+        })
+}
+
+function onSubmit (m,w) {
+  let userid=document.getElementById("user").innerHTML
+       var sc=0;
+  for (let i = 0; i < newArr.length; i++){
+    let id=newOpsArr[i]
+    if(id){
+      let c=document.getElementById(''+id).value;
+        if(newOpsArr[i]===newArr[i]){
+           sc=sc+1;
+        }
+        else{
+           console.log('fls');
+        }
+  }  
+    }
+    document.getElementById('score').value=sc
+    document.getElementById('userIdd').value=userid
+}
+
+setTimeout(function() {
+    $("#alert1").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 2000);
+
+    function deletePopup(link){
+      document.getElementById("exampleModal1").innerHTML=`<div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title" id="exampleModalLabel1">Delete Question </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete question?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      <a href="${link}"> <button type="button" class="btn btn-danger">Delete</button></a> 
+      </div>
+    </div>
+  </div>`
+    }
+</script>
+{{/ifEquals}}
+
+{{#ifEquals status 'finished'}}
+   <div class="view-qns">
+{{#each qns}}
+<div  class="qn-div" key={{@index}} id="{{@index}}">
+    <p>{{indexAdd @index}} . {{this.qn}}  {{week}}</p>
+    <input type='radio' value="{{this.op1}}" name="{{@index}}" id="{{@index}}1" class="input{{@index}}"/><label for="{{@index}}1" id="label{{@index}}1"> {{this.op1}}</label><br/>
+    <input type='radio' value="{{this.op2}}" name="{{@index}}" id="{{@index}}2" class="input{{@index}}"/><label for="{{@index}}2" id="label{{@index}}2"> {{this.op2}}</label><br/>
+    <input type='radio' value="{{this.op3}}" name="{{@index}}" id="{{@index}}3" class="input{{@index}}"/><label for="{{@index}}3" id="label{{@index}}3"> {{this.op3}}</label><br/>
+    <input type='radio' value="{{this.op4}}" name="{{@index}}" id="{{@index}}4" class="input{{@index}}"/><label for="{{@index}}4" id="label{{@index}}4"> {{this.op4}}</label><br/>
+
+    <input type="radio" id="ans{{@index}}"/><label for="ans{{@index}}" id="anss{{@index}}">Answer: option{{this.ans}}</label>
+</div>
+
+<script>
+  var index = "{{@index}}";
+  var index=parseInt(index)
+  var answer=document.getElementById(""+newArr[index]).value
+
+  if(newOpsArr[index]){
+  var element=document.getElementById("label"+newOpsArr[index])
+ 
+  if(newOpsArr[index]===newArr[index]){
+    element.style.background = "#4CAF50";
+  }else{
+    element.style.background = "#f02b2b";
+    element.style.border='none'
+  }
+    }
+
+  var answerElement=document.getElementById("anss"+index)
+  answerElement.innerHTML='Answer : '+answer;
+  answerElement.style.background='grey'
+  answerElement.style.color='white';
+  answerElement.style.border='none'
+
+  setTimeout(function() {
+    $("#alert2").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 2000);
+  
+</script>
+{{/each}}
+</div>
+<div class="alert alert-success" role="alert" id="alert2">
+  <strong>Great!</strong> Quiz is Over!
+</div>
+<button id="btn" style="display: none;"></button>
+<script>
+  document.getElementById('btn').disabled=true
+  for(let i=0;i<{{../qnsLength}};i++){
+    for(let j=0;j<4;j++){
+       document.getElementsByName(''+i)[j].disabled=true
+    }   
+  }
+</script>
+{{/ifEquals}}
+{{else}}
+    <h2>Coming Soon...</h2>
+    <button id="btn" style="display: none;"></button>
+{{/if}}
+
+{{/with}}
+

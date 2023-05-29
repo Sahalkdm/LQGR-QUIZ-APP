@@ -1,0 +1,87 @@
+<style>
+    .about-box{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .main-about-box{
+      margin-top: 3rem;
+      padding-top: 3rem;
+        background: rgba(222, 184, 135, 0.482);
+    }
+    .main-about-box h2{
+      color: white;
+      text-shadow: 1px 1px #000000;
+    }
+    .about-box input{
+      width: 500px;
+    }
+    .about-box textarea{
+        width: 500px;
+    }
+    @media screen and (max-width: 850px) {
+      .about-box{
+        padding: 20px;
+      }
+      .about-box input{
+        width:400px
+      }
+      .about-box textarea{
+        width: 400px;
+    }
+    }
+    @media screen and (max-width: 480px) {
+      .about-box{
+        padding: 2px;
+      }
+      .about-box input{
+        width:300px
+      }
+      .about-box textarea{
+        width: 300px;
+    }
+    }
+</style>
+
+<section class="main-about-box mt-2">
+<form action="/aboutus" method="post">
+<h2 class="text-center mt-5">Contact Us</h2>
+<p >Please give Your valuable feedbacks</p>
+<div class="about-box">
+    <div class="form-group">
+       <label for="exampleInputEmail1">Email address</label>
+       <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email" required>
+  </div>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone No.</label>
+    <input type="number" class="form-control" id="phone" placeholder="phone no" name="phone">
+  </div>
+   <div class="form-group">
+    <label for="exampleFormControlTextarea1">Commands</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="message"></textarea>
+  </div>
+   <button type="submit" class="btn btn-primary mb-3">Submit</button>
+  </div>
+ 
+</form>
+</section>
+<footer style="background: linear-gradient(to right, #44251f 0%, #660033 50%, #44251f 100%);">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center text-white">
+            <a href="https://www.facebook.com/people/Sahal-K/100075902350348/"><i class="fa-brands fa-facebook-square fa-2x p-1" style="color:white"></i></a>
+            <a href="https://www.instagram.com/sahal_kdm/"><i class="fa-brands fa-instagram-square fa-2x p-1" style="color:white"></i></a>
+            <a href="https://wa.me/7736614854"><i class="fa-brands fa-square-whatsapp fa-2x p-1" style="color: white;"></i></a>
+            <a href="https://www.youtube.com/channel/UCizZT38nZSEiluC0GXECBcA"><i class="fa-brands fa-youtube fa-2x p-1" style="color: white;"></i></a>
+            <p>Copyrights</p>
+          </div>
+        </div>
+
+      </div>
+    </footer>

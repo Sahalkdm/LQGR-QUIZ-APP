@@ -1,0 +1,149 @@
+<style>
+    .pdfs-box {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+  padding-right: 5px;
+  margin-top: 5rem;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  background: rgba(222, 184, 135, 0.482); 
+}
+
+.main-pdf-box {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.pdf-box {
+  display: flex;
+  background: rgb(132, 77, 6);
+  padding: 5px 10px;
+  width: 400px;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.pdf-box .name {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dwnd-box {
+  border: 1px solid rgb(132, 77, 6);
+  text-decoration: none;
+  color: rgb(132, 98, 6);
+  font-size: 19px;
+  padding: 5px 10px;
+  margin:0 10px;
+  transition: 0.3s;
+}
+
+.pdf-box:hover {
+  background: rgba(224, 191, 148, 0.128);
+  color: rgb(132, 77, 6);
+  box-shadow: 1px 1px 10px 1px black;
+}
+
+.pdf-box:hover i {
+  color: rgb(132, 77, 6);
+}
+
+.pdf-box i {
+  color: rgb(236, 208, 136);
+  margin-right: 10px;
+}
+
+.dwnd-box:hover {
+    background:rgb(132, 77, 6) ;
+}
+.dwnd-box:hover i{
+    color: gold;
+}
+a {
+  text-decoration: none !important;
+}
+.input-field {
+  width: 200px;
+  white-space: pre-wrap;
+  max-height: 60px;
+}
+@media only screen and (max-width: 768px) {
+  .pdf-box {
+    width: 300px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .pdf-box {
+    width: 250px;
+  }
+  .pdfs-box{
+    margin-left: -30px;
+  }
+  .dwnd-box{
+    margin:0 2px;
+  }
+}
+
+</style>
+
+<h1>Documents</h1>
+<div class="pdfs-box">
+  <ul>
+   
+    {{#each pdfs}}
+     <div class="main-pdf-box">
+      <a href="/viewpdf/{{_id}}"><div class="pdf-box" title="view document">
+        <div class="icon">
+            <i class="fa-solid fa-file-lines"></i>
+        </div>
+        <div class="name">{{name}}</div>
+    </div></a>
+    <a href="/download/{{_id}}"><div class="dwnd-box" title="download"><i class="fa-solid fa-download"></i></div></a>
+    
+    {{#if ../user1}}
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+</div>
+
+
+    <div class="dwnd-box" title="delete" data-toggle="modal" data-target="#exampleModal2" onclick="deletePdfPopup('/{{../url}}/deletePdf/{{_id}}','{{name}}')"><i class="fa-solid fa-trash-can"></i></div>
+<script>
+  function deletePdfPopup(link,name){
+      document.getElementById("exampleModal2").innerHTML=`<div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title" id="exampleModalLabel2">Delete Question </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete ${name}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      <a href="${link}"> <button type="button" class="btn btn-danger">Delete</button></a> 
+      </div>
+    </div>
+  </div>`
+    }
+</script>
+
+    {{/if}}
+    </div>
+    {{/each}}
+  </ul>
+</div>  
+

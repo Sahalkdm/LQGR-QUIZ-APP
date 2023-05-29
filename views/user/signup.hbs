@@ -1,0 +1,181 @@
+<style>
+  .login-box {
+    -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+   padding: 20px 50px;
+   width: 50%;
+   text-align: center;
+   border-radius: 5px;
+   margin-bottom: 4%;
+   background: rgba(222, 184, 135, 0.805);
+  }
+
+
+
+  .login-box img {
+    width: 15rem;
+    height: 6rem;
+  }
+
+  .login-box form {
+    text-align: left;
+  }
+
+  .login-box label {
+  }
+
+  .container {
+    display: flex;
+    padding-top: 3%;
+    justify-content: center;
+  }
+
+  .btn-box1 {
+    text-align: center;
+  }
+
+  .btn-box1 button {
+    width: 40%;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-around;
+  }
+.btn-box{
+  text-align: center;
+}
+  .mbage {
+    display: flex;
+    justify-content: space-around;
+  }
+  .error {
+    color: red;
+  }
+  @media screen and (max-width: 850px) {
+    .login-box{
+      width: 80%;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .login-box {
+      width: 100%;
+      padding: 30px 10px;
+    }
+  }
+</style>
+
+
+<section>
+  <div class="container">
+    <div class="login-box">
+      <div class="head">
+        <h2>SIGNUP</h2>
+         <img src="/images/rainbow-logo-design-transparent-0.png" alt="">
+      </div>
+      {{#if signupErr}}
+   <p class="error">⚠️Username already exist, please use another</p>
+  {{/if}}
+      <form action="/user/signup" method="post" id="form1">
+ <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="Name" placeholder="name" name="name" required>
+  </div>
+  <div class="form-group">
+    <label for="place">Place</label>
+    <input type="text" class="form-control" id="place" placeholder="place" name="place" required>
+  </div>
+  <div class="mbage">
+    <div class="form-group mr-2" style="width: 60%;">
+    <label for="">Phone No.</label>
+    <input type="number" class="form-control" id="" placeholder="Phone No." name="phone" required>
+  </div>
+  <div class="form-group" style="width: 40%;">
+    <label for="">Age</label>
+    <input type="number" class="form-control" id="" placeholder="age" name="age" >
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+  </div>
+  <div class="form-group">
+    <label for="username">User Name</label>
+    <input type="text" class="form-control" id="username" placeholder="User Name" name="username" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password" name="password" required onchange="checkPassword()">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Confirm Password</label>
+    <input type="password" class="form-control" id="confirmpassword" placeholder="Password" name="confirmpassword" required onchange="checkPassword()">
+  </div>
+
+  <input type="" class="form-control"  name="admin" value='false' hidden>
+
+  <label class="form-check-label ml-4">
+    <input type="checkbox" class="form-check-input" value="" id="Checkbox">Check
+  </label>
+  <div class="btn-box">
+  <button type="submit" class="btn btn-primary" id="Button">Submit</button>
+  </div>
+</form>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Check</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Check your passwords (your Passwords not matching)
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById("Button").disabled=true
+  const getPassword=()=>{
+    var password= document.getElementById("password").value;
+  }
+
+  const checkPassword=()=>{
+    const password= document.getElementById("password").value;
+    const confirmpassword= document.getElementById("confirmpassword").value;
+    document.getElementById("Button").disabled=true
+    document.getElementById("Checkbox").checked=""
+     if(password===confirmpassword){
+     document.getElementById("Button").disabled=false
+  }
+  else if(confirmpassword === '' || password === ''){
+    document.getElementById("Button").disabled=true
+  }else{
+    document.getElementById("Button").disabled=true
+     $(document).ready(function(){
+    $("#myModal").modal();
+});
+  }
+  }
+
+</script>
+

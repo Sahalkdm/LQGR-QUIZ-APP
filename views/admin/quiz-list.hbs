@@ -1,0 +1,64 @@
+<h1>Quiz list</h1>
+
+<style>
+  .quiz-mod-box {
+    padding: 2rem;
+    text-align: center;
+    background: burlywood;
+    -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  background: rgba(222, 184, 135, 0.482); 
+  width:60%;
+  margin: auto;
+  margin-top:3rem;
+  }
+  .mod-box {
+    margin-top: 20px;
+  }
+  .dpdn-box{
+    width: 90%;
+  }
+  .dpdn-menu{
+    width: 100%;
+  }
+  .s-btn {
+    width: 90%;
+    padding: 5px;
+    margin: auto;
+    margin-top: 3px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  @media screen and (max-width: 998px){
+    
+    .quiz-mod-box {
+    padding: 0.5rem;
+    width: 95%;
+   }
+    .dpdn-box {
+    width: 95%;
+   }
+  }
+</style>
+
+<div class="quiz-mod-box">
+{{#each weekmod}}
+<div class="mod-box">
+   <div class="btn-group dpdn-box">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Module {{this.modul}}
+  </button><br>
+  <div class="dropdown-menu dpdn-menu">
+    {{#each this.weeks}}
+    <a class="dropdown-item bg-warning s-btn" href="add-qns/m{{../this.modul}}/w{{this}}">Week {{this}}</a>
+    {{/each}}
+</div>
+</div>
+{{/each}}
+
+</div>
+</div>
+

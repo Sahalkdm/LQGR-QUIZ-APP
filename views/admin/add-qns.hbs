@@ -1,0 +1,82 @@
+<style>
+    .input:{
+        width: 100px;
+    }
+    .add-qn-box{
+      margin: auto;
+      padding:10px;
+      width:60%;
+      -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+   margin-top: 30px;
+    }
+    .add-qn-box label{
+      margin-top: 5px;
+      font-weight: 500;
+    }
+    .add-qn-box input{
+      margin-bottom: 5px;
+      margin-top: -2px;
+      width: 100%;
+    }
+    .add-qn-box select{
+      background: burlywood;
+      padding: 4px;
+      cursor: pointer;
+      transition: 0.5s;
+      border-radius: 5px;
+    }
+    .add-qn-box select:hover{
+      background:rgb(199, 162, 114);
+    }
+    @media only screen and (max-width: 998px){
+      .add-qn-box{
+        width: 80%;
+      }
+    }
+    @media only screen and (max-width: 480px){
+      .add-qn-box {
+        width: 95%;
+      }
+    }
+</style>
+
+<div class="bg-light add-qn-box">
+  <h2 class="text-center">Module: {{mod}} , Week: {{qnId}}</h2>
+<form action="/{{url}}/add-qns" method="post">
+  <label for="">Question:</label><br>
+  <input type="text" id="qn" name="qn" class="input" required><br>
+  <label for="">Option 1</label><br>
+  <input type="text" id="op1" name="op1" required><br>
+  <label for="">Option 2</label><br>
+  <input type="text" id="op2" name="op2" required><br>
+  <label for="">Option 3</label><br>
+  <input type="text" id="op3" name="op3" required><br>
+  <label for="">Option 4</label><br>
+  <input type="text" id="op4" name="op4" required><br>
+  <input type="number" name="id" value="{{qnId}}" hidden>
+  <input type="number" name="md" value="{{mod}}" hidden>
+  <label for="">Answer</label><br>
+  <select id="anws" onchange="myfunction()" required>
+      <option value="" disabled selected>select Answer</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+  </select>
+  <input type="text" id="ans" name="ans"  hidden required><br><br>
+  <button type="submit" class="btn btn-success">Add</button><br><br>
+  
+</form>
+</div>
+
+<script>
+  function myfunction(){
+    const answer=document.getElementById('anws').value
+  document.getElementById('ans').value=answer;
+  }
+  
+</script>

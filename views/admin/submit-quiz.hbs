@@ -1,0 +1,167 @@
+<h1>Submit Quizes</h1>
+
+<h1>Quiz list</h1>
+
+<style>
+  .quiz-mod-box {
+    padding: 4rem;
+    text-align: center;
+    width: 65%;
+    margin: auto; -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+   
+  }
+  .mod-box {
+    margin-top: 20px;
+color: rgb(191, 72, 72);
+  }
+  .dpdn-box{
+    width: 85%;
+  }
+
+  .dpdn-menu{
+    width: 100%;
+  }
+  .s-btn {
+    width: 90%;
+    padding: 2px;
+    margin: 2px 5%;
+  }
+  @media screen and (max-width: 998px){
+    
+    .quiz-mod-box {
+    padding: 0.5rem;
+    width: 95%;
+   }
+    .dpdn-box {
+    width: 80%;
+   }
+  }
+  @media screen and (max-width: 998px){
+    .dpdn-box {
+    width: 73%;
+   }
+  }
+</style>
+
+<div class="quiz-mod-box">
+{{#each weekmod}}
+<div class="mod-box">
+   <div class="btn-group dpdown dpdn-box">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Module {{this.modul}}
+  </button><br>
+  <div class="dropdown-menu dpdn-menu">
+    {{#each this.weeks}}
+    
+    <button type="button" class="btn btn-warning s-btn" data-toggle="modal" data-target="#exampleModal" onclick="confirmPopup({{../this.modul}},{{this}},'submit-quiz/')" id="{{../this.modul}}{{this}}" value="ght">
+  {{this}}
+</button>
+
+<!-- Modal -->
+    {{/each}}
+</div>
+</div>
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="confirmPopup1({{this.modul}},'All','markasdone/m{{this.modul}}')" id="btn{{this.modul}}">Done</button>
+{{#if this.done}}
+<script>
+  
+    document.getElementById('btn{{this.modul}}').disabled = true
+  
+</script>
+{{/if}}
+{{/each}}
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  
+</div>
+
+<script>
+  function confirmPopup (module, week, link1){
+    let quizElementValue=document.getElementById(""+module+week).value
+    console.log(quizElementValue)
+    if(quizElementValue==='submit-quiz/'){
+      var content='submitting quiz'
+    }else{
+      content='starting quiz'
+    }
+    let link=quizElementValue+'m'+module+'/w'+week
+
+    let modal=document.getElementById("exampleModal")
+    modal.innerHTML=`<div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title" id="exampleModalLabel">Quiz Submission</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You are ${content} Module <strong> ${module} </strong> and Week <strong> ${week} </strong> !</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="${link}"><button type="button" class="btn btn-success" onclick="submitQuiz(${module},${week})">Submit</button></a>
+      </div>
+    </div>
+  </div>`
+  }
+
+  function confirmPopup1 (module, week, link){
+
+    let modal=document.getElementById("exampleModal")
+    modal.innerHTML=`<div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title" id="exampleModalLabel">Quiz Submission</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You are submitting Module <strong> ${module} </strong> and Week <strong> ${week} </strong> !</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="${link}"><button type="button" class="btn btn-success">Submit</button></a>
+      </div>
+    </div>
+  </div>`
+  }
+</script>
+
+{{#each submissionCheck}}
+<script>
+   var m={{this.module}}
+      var w={{this.week}}
+      console.log('mw'+m+w)
+      var quizElement=document.getElementById(""+m+w)
+      quizElement.style.color='white'
+      console.log(quizElement.value)
+</script>
+  {{#ifEquals this.status 'finished'}}
+     <script>
+      quizElement.style.background='brown'
+      quizElement.innerHTML='Finished Week-'+ w
+      quizElement.disabled=true
+     </script>
+  {{/ifEquals}}
+  {{#ifEquals this.status 'Not-started'}}
+     <script>
+      quizElement.innerHTML='Start Quiz Week-'+ w
+      quizElement.style.background='#4CAF50'
+      quizElement.value='start-quiz/'
+     </script>
+  {{/ifEquals}}
+  {{#ifEquals this.status 'started'}}
+     <script>
+      quizElement.innerHTML='Submit Quiz Week-'+ w
+      quizElement.style.background='rgb(191, 72, 72)'
+      quizElement.value='submit-quiz/'
+     </script>
+  {{/ifEquals}}
+{{/each}}

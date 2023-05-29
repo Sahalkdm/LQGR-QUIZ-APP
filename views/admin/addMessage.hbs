@@ -1,0 +1,108 @@
+<style>
+  .dwnd-box {
+        border:1px solid rgb(132, 77, 6);
+        text-decoration: none;
+        color: rgb(132, 98, 6);
+        font-size: 19px;
+        padding: 5px 10px;
+        margin-left: 10px;
+    }
+
+    .dwnd-box:hover {
+        background-color: rgb(132, 77, 6);
+        color: azure;
+        border: 1px solid white;
+    }
+    .add-msg-box{
+      width:60%;
+      padding: 2rem;
+      margin: auto;
+      -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -ms-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               -o-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+               box-shadow: 0 19px 38px #0000004d, 0 15px 12px rgba(0, 0, 0, 0.22);
+  background: rgba(222, 184, 135, 0.631); 
+  font-weight: 400;
+    }
+
+    .set-cur-mod{
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .set-cur-mod select{
+      background: rgb(175, 48, 48);
+    color: white;
+    width: 60%;
+    padding:7px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 3px;
+    text-align: center;
+  }
+  .set-cur-mod option{
+    padding: 3px;
+    margin: 3px;
+  }
+  .set-cur-mod select:hover{
+    background: rgb(139, 29, 29);
+  }
+  .msgs{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+     @media screen and (max-width: 720px) {
+      .add-msg-box{
+        width: 95%;
+      }
+     }
+</style>
+<h2>Send Messages</h2>
+<div class="add-msg-box">
+  <form action="/{{url}}/send-message" method="post">
+  
+  <div class="form-group">
+    <label for="msg">Message</label>
+    <input type="text" class="form-control" id="msg" placeholder="type Message" name="message">
+  </div>
+  <button type="submit" class="btn btn-warning">Send Message</button>
+</form>
+</div>
+
+<div class="add-msg-box set-cur-mod">
+  <form action="/{{url}}/set-current-module" method="post">
+<select id="module" onchange="myfunction()" required>
+      <option value="" disabled selected>Select Current Module</option>
+      <option value="1">Module 1</option>
+      <option value="2">Module 2</option>
+      <option value="3">Module 3</option>
+      <option value="4">Module 4</option>
+  </select>
+      <input type="text" class="form-control" id="mod" placeholder="" name="module" hidden>
+<h4 id="mdl"></h2>
+<button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+
+<div class="add-msg-box msgs">
+  <h2>messages</h2>
+
+  {{#with msg}}
+  <ul>
+{{#each messages}}
+<li>{{this.message}} <a href="/{{../../url}}/deleteMessage/{{@index}}"><i class="fa-solid fa-delete-left"></i></a></li>
+{{/each}}
+</ul>
+  {{/with}}
+</div>
+
+<script>
+  function myfunction(){
+    const mod=document.getElementById('module').value
+  document.getElementById('mod').value=mod;
+  document.getElementById('md1').innerHTML='Module: '+mod
+  }
+</script>
