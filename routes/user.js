@@ -235,34 +235,10 @@ router.get('/about',(req,res)=>{
   res.render('user/about',{title: 'LQGR About',user})
 })
 
-router.post('/aboutus', (req, res) => {
-  const { email,name,phone, message } = req.body;
- const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: myMail,
-      pass: myMailPass,
-    },
-    tls: {rejectUnauthorized: false}
-  });
-
-  // set up the email message
-  const mailOptions = {
-    from: email,
-    to: myMail,
-    subject: 'New message from website contact form',
-    text: `${name},\n\n${message},\n\nEmail : ${email},\n\nPhone No. : ${phone}`,
-  };
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      res.status(500).send('Error sending email');
-    } else {
-      res.redirect('/about');
-    }
-  });
-});
+router.post('/aboutus',(req,res)=>{
+  productHelper.storeFeedbacks(req.body)
+  res.redirect('/about')
+})
 
 router.put('/mark-as-read', (req,res)=>{
   productHelper.updateMessageRead(req.body)
