@@ -218,7 +218,7 @@ console.log(quizStartTime)
     document.getElementById('elapsed-time').textContent = formatElapsedTime(elapsedTime);
 
     // Check if the time limit has exceeded
-    const timeLimit = 2 * 60 * 1000; // 15 minutes in milliseconds
+    const timeLimit = 15 * 60 * 1000; // 15 minutes in milliseconds
     if (elapsedTime >= timeLimit) {
       // Redirect to the submission page or perform any other desired action
       document.querySelector("#sbtns").click();
