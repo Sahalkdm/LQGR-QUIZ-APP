@@ -39,7 +39,6 @@
 </form> 
 <h1 class="bg-dark text-white">Module {{module}}</h1>
 
-{{#if moduleEnd.done}}
 <div style="overflow-x:auto;">
 <table class="table bg-light table-striped">
   <thead class="thead-dark">
@@ -63,9 +62,6 @@
 </div>
 <h3 class="bg-warning p-1">Total Score : {{sum}}</h3>
 
-{{else}}
-<h2 class="bg-dark text-danger">Module {{module}} not finished</h2>
-{{/if}}
 
 <script>
 
