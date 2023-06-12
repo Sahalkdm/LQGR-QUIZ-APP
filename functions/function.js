@@ -552,7 +552,7 @@ deleteMessage:(i)=>{
 
     getOneWeekMod:(m)=>{
       return new Promise(async(resolve,reject)=>{
-          await db.get().collection('modweeks').findOne({module:m}).then((weekmod)=>{
+          await db.get().collection('modweeks').findOne({modul:m}).then((weekmod)=>{
             resolve(weekmod)
           })      
       })
