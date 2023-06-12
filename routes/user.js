@@ -35,7 +35,7 @@ router.get('/', async(req, res, next)=> {
   }
  productHelper.getMessages().then((messagess)=>{
   console.log(messagess);
-     productHelper.getOneWeekMod(messagess.module).then((curMod)=>{
+     productHelper.getOneWeekMod(messagess.currentModule).then((curMod)=>{
       console.log(curMod);
       res.render('user/index', {title: 'LQGR',user:user, admin:myBoolean1,messagess,read,curMod,url:UrlAdmpg})
      })
