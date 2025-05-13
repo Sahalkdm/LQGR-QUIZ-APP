@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 const mongoUrl = process.env.MONGODB_URI;
-//const mongoUrl = 'mongodb+srv://newUser:773661@cluster0.myxi4kx.mongodb.net/test';
+
 const state={
     db:null
 }
