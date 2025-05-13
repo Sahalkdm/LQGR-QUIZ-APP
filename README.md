@@ -1,6 +1,10 @@
 ###  🧠 Quiz Application
 A full-stack quiz application built using Node.js, Express.js, MongoDB, and Handlebars (HBS). The platform supports customizable quizzes, real-time discussions, and dynamic leaderboards.
 
+[Link to website](https://lqgr-app.vercel.app/)
+
+---
+
 ## 🔧 Features
 
 - 🗓 **Customizable Quiz Schedules**  
